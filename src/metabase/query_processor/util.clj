@@ -39,7 +39,7 @@
   "Return QUERY with only the keys relevant to hashing kept.
    (This is done so irrelevant info or options that don't affect query results doesn't result in the same query producing different hashes.)"
   [query]
-  {:pre [(map? query)]}
+  {:pre [(map? query) (integer? (:database query))]}
   (let [{:keys [constraints parameters], :as query} (select-keys query [:database :type :query :native :parameters :constraints])]
     (cond-> query
       (empty? constraints) (dissoc :constraints)
